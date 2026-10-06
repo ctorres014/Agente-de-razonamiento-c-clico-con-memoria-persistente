@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "thread_id": "demo-ejemplo-001",
+    "created_at": "2025-10-06T10:00:00+00:00",
+    "llm_provider": "ollama",
+    "model": "llama3.1",
+    "recursion_limit": 10,
+    "tools": ["buscar_cliente", "buscar_pedidos", "obtener_detalle_pedido"]
+  },
+  "interactions": [
+    {
+      "turn": 1,
+      "input": "¿Cuántos pedidos tuvo el cliente Carlos Ruiz y cuál fue el total?",
+      "tool_calls_count": 2,
+      "reasoning_steps": [
+        {
+          "type": "tool_call",
+          "tool_name": "buscar_cliente",
+          "tool_args": { "nombre": "Carlos Ruiz" },
+          "tool_result": {
+            "clientes": [
+              {
+                "cliente_id": 102,
+                "nombre": "Carlos Ruiz",
+                "email": "carlos.ruiz@example.com",
+                "ciudad": "Córdoba"
+              }
+            ],
+            "total_encontrados": 1
+          }
+        },
+        {
+          "type": "tool_call",
+          "tool_name": "buscar_pedidos",
+          "tool_args": { "cliente_id": 102 },
+          "tool_result": {
+            "cliente_id": 102,
+            "nombre_cliente": "Carlos Ruiz",
+            "pedidos": [
+              {
+                "pedido_id": 2,
+                "cliente_id": 102,
+                "producto": "Laptop Dell XPS 15",
+                "monto": 7000.0,
+                "fecha": "2024-01-15",
+                "estado": "entregado"
+              },
+              {
+                "pedido_id": 3,
+                "cliente_id": 102,
+                "producto": "Monitor LG UltraWide 27\"",
+                "monto": 4500.0,
+                "fecha": "2024-02-20",
+                "estado": "entregado"
+              },
+              {
+                "pedido_id": 5,
+                "cliente_id": 102,
+                "producto": "Teclado Mecánico Keychron K2",
+                "monto": 3000.0,
+                "fecha": "2024-03-10",
+                "estado": "pendiente"
+              }
+            ],
+            "total_pedidos": 3,
+            "monto_total": 14500.0
+          }
+        },
+        {
+          "type": "ai_response",
+          "content": "El cliente Carlos Ruiz (ID: 102, ciudad: Córdoba) tuvo 3 pedidos por un total de $14.500. Sus compras fueron: Laptop Dell XPS 15 ($7.000), Monitor LG UltraWide 27\" ($4.500) y Teclado Mecánico Keychron K2 ($3.000)."
+        }
+      ],
+      "final_response": "El cliente Carlos Ruiz (ID: 102, ciudad: Córdoba) tuvo 3 pedidos por un total de $14.500. Sus compras fueron: Laptop Dell XPS 15 ($7.000), Monitor LG UltraWide 27\" ($4.500) y Teclado Mecánico Keychron K2 ($3.000)."
+    },
+    {
+      "turn": 2,
+      "input": "¿Y cuál fue el último pedido que hizo?",
+      "tool_calls_count": 1,
+      "reasoning_steps": [
+        {
+          "type": "tool_call",
+          "tool_name": "obtener_detalle_pedido",
+          "tool_args": { "pedido_id": 5 },
+          "tool_result": {
+            "pedido_id": 5,
+            "cliente_id": 102,
+            "producto": "Teclado Mecánico Keychron K2",
+            "monto": 3000.0,
+            "fecha": "2024-03-10",
+            "estado": "pendiente",
+            "nombre_cliente": "Carlos Ruiz"
+          }
+        },
+        {
+          "type": "ai_response",
+          "content": "El último pedido de Carlos Ruiz fue el pedido #5: un Teclado Mecánico Keychron K2 por $3.000, realizado el 10 de marzo de 2024. Su estado actual es pendiente."
+        }
+      ],
+      "final_response": "El último pedido de Carlos Ruiz fue el pedido #5: un Teclado Mecánico Keychron K2 por $3.000, realizado el 10 de marzo de 2024. Su estado actual es pendiente."
+    },
+    {
+      "turn": 3,
+      "input": "¿Está entregado ese pedido?",
+      "tool_calls_count": 0,
+      "reasoning_steps": [
+        {
+          "type": "ai_response",
+          "content": "No, el pedido #5 del Teclado Mecánico Keychron K2 aún no fue entregado. Su estado actual es pendiente (según la información obtenida en el turno anterior)."
+        }
+      ],
+      "final_response": "No, el pedido #5 del Teclado Mecánico Keychron K2 aún no fue entregado. Su estado actual es pendiente (según la información obtenida en el turno anterior)."
+    }
+  ]
+}

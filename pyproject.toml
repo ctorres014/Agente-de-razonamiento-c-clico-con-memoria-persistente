@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "agente-razonamiento-ciclico"
+version = "0.1.0"
+description = "Agente de razonamiento cíclico con memoria persistente usando LangGraph"
+authors = ["Claudio Torres <ctorres014@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.14"
+langgraph = ">=0.2.0"
+langgraph-checkpoint-sqlite = ">=2.0.0"
+langchain = ">=0.3.0"
+langchain-core = ">=0.3.0"
+langchain-ollama = ">=0.2.0"
+langchain-openai = { version = ">=0.2.0", optional = true }
+langchain-anthropic = { version = ">=0.3.0", optional = true }
+python-dotenv = ">=1.0.0"
+aiosqlite = ">=0.20.0"
+
+[tool.poetry.extras]
+openai = ["langchain-openai"]
+anthropic = ["langchain-anthropic"]
+all = ["langchain-openai", "langchain-anthropic"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0"
+pytest-asyncio = ">=0.24"
+
+[tool.poetry.scripts]
+demo = "main:cli_entry"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

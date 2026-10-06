@@ -1,0 +1,27 @@
+# Entorno
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Poetry
+dist/
+*.egg-info/
+
+# Base de datos de checkpoints (generada en runtime)
+*.db
+*.db-shm
+*.db-wal
+
+# Trazas generadas dinámicamente (conservar solo el ejemplo)
+traces/trace_*.json
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# macOS
+.DS_Store
